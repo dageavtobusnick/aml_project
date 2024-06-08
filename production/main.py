@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 import os
 from streamlit_drawable_canvas import st_canvas
+from model import predict
 
 st.title("Распознавание рукописных цифр")
 
@@ -20,11 +21,6 @@ canvas_result = st_canvas(
 model = None
 
 if canvas_result is not None and canvas_result.image_data is not None:
-    if not os.path.isfile("./mnist_model.h5"):
-        raise FileNotFoundError("Не найден файл с обученной моделью.")
-    else:
-        model = tf.keras.models.load_model("./mnist_model.h5")
-    
     image = canvas_result.image_data
 
     if image is not None:
@@ -38,6 +34,6 @@ if canvas_result is not None and canvas_result.image_data is not None:
         image = tf.expand_dims(image, axis=0)
         image = image / 255.0
 
-        prediction = np.argmax(model.predict(image))
+        prediction = np.argmax(predict(image))
 
         st.write(f"Предсказанная цифра: {prediction}")

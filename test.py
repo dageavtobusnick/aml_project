@@ -1,9 +1,11 @@
 import unittest
 from production.model import predict
 import numpy as np
+import sys
 from tensorflow.keras import models
 
-
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
 class TestPredict(unittest.TestCase):
 
     def test_predict_None(self):

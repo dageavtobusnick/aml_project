@@ -1,5 +1,9 @@
 import numpy as np
+import sys
 from tensorflow.keras import layers, models
+
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
 
 def create_model():
     model = models.Sequential([

@@ -1,7 +1,5 @@
 import numpy as np
 from tensorflow.keras import layers, models
-from tensorflow.keras.datasets import mnist
-
 
 def create_model():
     model = models.Sequential([
@@ -19,23 +17,13 @@ def create_model():
                   metrics=['accuracy'])
     return model
 
-
-def train_model():
+def train_model(X_train, y_train):
     model = create_model()
     model.fit(X_train, y_train, epochs=5, batch_size=64, validation_split=0.1)
-    test_loss, test_acc = model.evaluate(X_test, y_test)
-    model.save("mnist_model.h5")
+    model.save("./production/mnist_model.h5")
     return model
 
-np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
-np.load('/tmp/123.npy')
-(X_train, y_train), (X_test, y_test) = mnist.load_data()
+X_train = np.load('./data/train/X_processed.npy')
+y_train = np.load('./data/train/Y.npy')
 
-
-X_train = X_train.reshape(-1, 28, 28, 1).astype("float32") / 255.0
-X_test = X_test.reshape(-1, 28, 28, 1).astype("float32") / 255.0
-
-model = create_model()
-train_model(model, X_train, y_train, X_test, y_test)
-model.save("mnist_model.h5")
-
+train_model(X_train, y_train)

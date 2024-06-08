@@ -1,5 +1,3 @@
-transformers[torch]
-transformers
 tensorflow
-torch
+keras
 streamlit
